@@ -1,9 +1,9 @@
 import { ContainerRuntimeFactoryWithDefaultDataStore } from "@fluidframework/aqueduct";
-import { Main } from "./dataObjects/main";
+import { TodoList } from "./dataObjects/main";
 
 export const ContainerFactory = new ContainerRuntimeFactoryWithDefaultDataStore(
-    Main.Factory.type,
+    TodoList.Factory.type,
     new Map([
-        Main.Factory.registryEntry,
+        TodoList.Factory.registryEntry,
     ]),
 );

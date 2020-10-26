@@ -4,12 +4,12 @@ import {
     IFluidHandle,
 } from "@fluidframework/core-interfaces";
 
-export class Main extends DataObject {
-    public todos!: ISharedDirectory;
+export class TodoList extends DataObject {
+    public todos!: ISharedDirectory; // Property
 
     public static Factory = new DataObjectFactory(
         "main",
-        Main,
+        TodoList,
         [
             SharedDirectory.getFactory(),
         ],

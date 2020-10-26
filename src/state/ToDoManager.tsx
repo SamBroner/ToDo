@@ -1,5 +1,6 @@
+import { ISharedDirectory } from "@fluidframework/map";
 import React from "react";
-import { Main } from "../dataObjects/main";
+import { TodoList } from "../dataObjects/main";
 import { FluidContext } from "./contextProvider";
 import { getDataFromSubdirectory, useSelector } from "./hooks";
 
@@ -9,8 +10,9 @@ export interface IToDo {
     completed: boolean;
 }
 
+// Needs to inherit the context
 export const getToDoSetters = () => {
-    const dataObject = React.useContext(FluidContext) as Main;
+    const dataObject = React.useContext(FluidContext) as TodoList;
     const { todos } = dataObject;
     return {
         addTodo: (title: string) => {
@@ -23,7 +25,6 @@ export const getToDoSetters = () => {
             for (const k in todo) {
                 subdir.set(k, todo[k]);
             }
-
         },
         updateTodo: (id: string, todo: Partial<Omit<IToDo, "id">>) => {
             const subdir = todos.getSubDirectory(id);
@@ -38,8 +39,12 @@ export const getToDoSetters = () => {
     }
 }
 
+// the selectorFn is responsible for getting an IToDo[] from the TodoList
+// Use UseSelector is responsible for keeping that IToDo[] up to date 
+    // (and react then rerendering any dependent components)
 export const getToDos = () => {
-    return useSelector<IToDo[]>(({ todos }) => {
-        return Array.from(todos!.subdirectories()).map<IToDo>(getDataFromSubdirectory);
+    return useSelector<IToDo[]>((todoList: TodoList) => {
+        const todos: ISharedDirectory = todoList.todos;
+        return Array.from(todos.subdirectories()).map<IToDo>(getDataFromSubdirectory);
     }, ['todoDirectory']);
 }

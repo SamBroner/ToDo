@@ -8,7 +8,7 @@ export const ToDos = () => {
     const todos = getToDos(); // Get ToDos
     const { addTodo, updateTodo, deleteTodo } = getToDoSetters();
 
-    const onRenderToDo = (todo?: IToDo) => {
+    const ToDoItemComponent = (todo?: IToDo) => {
         if (!todo) {
             return (<></>)
         }
@@ -24,7 +24,6 @@ export const ToDos = () => {
                 </Text>
                 {/* <FontIcon iconName={"Edit"} style={{margin: '5px' }} /> */}
                 <a onClick={() => {
-                    console.log("delete")
                     deleteTodo(todo.id)
                 }}>
                     <FontIcon iconName={"Delete"} style={{
@@ -47,7 +46,7 @@ export const ToDos = () => {
                 }}
             />
             {todos.length > 0 ? (
-                <List items={todos} onRenderCell={onRenderToDo} />
+                <List items={todos} onRenderCell={ToDoItemComponent} />
             ) : (
                     <></>
                 )}

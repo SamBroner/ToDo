@@ -1,5 +1,5 @@
 import React from "react";
-import { Main } from "../dataObjects/main";
+import { TodoList } from "../dataObjects/main";
 import { FluidContext } from "./contextProvider";
 
 /**
@@ -9,7 +9,7 @@ import { FluidContext } from "./contextProvider";
  * @param selectorFunction - function that scopes the returned data
  * @param eventNames - event names to rerender on
  */
-export const useSelector = <T,>(selectorFunction: (dataObject: Main) => T, eventNames: string[]): T => {
+export const useSelector = <T,>(selectorFunction: (dataObject: TodoList) => T, eventNames: string[]): T => {
     const dataObject = React.useContext(FluidContext);
 
     const [selectorState, setSelectorState] = React.useState<T>(
@@ -41,7 +41,6 @@ export const useSelector = <T,>(selectorFunction: (dataObject: Main) => T, event
  * @param item a subdirectory
  */
 export const getDataFromSubdirectory = <T,>(item: any): T => {
-    console.log(item);
     const data = {};
     for (const [key, value] of item[1]) {
         data[key] = value;
