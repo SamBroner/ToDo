@@ -31,8 +31,9 @@ export const getToDoSetters = () => {
                 subdir.set(key, value);
             }
         },
-        deleteTodo: () => {
-
+        deleteTodo: (id: string) => {
+            todos.deleteSubDirectory(id);
+            dataObject.emitEvent("todoDirectory");
         }
     }
 }

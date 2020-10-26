@@ -1,5 +1,5 @@
 import { DataObject, DataObjectFactory } from "@fluidframework/aqueduct";
-import { ISharedDirectory, SharedDirectory } from "@fluidframework/map";
+import { IDirectoryValueChanged, ISharedDirectory, SharedDirectory } from "@fluidframework/map";
 import { createListItems, IExampleItem } from "@uifabric/example-data";
 import {
     IFluidHandle,
@@ -41,8 +41,10 @@ export class Main extends DataObject {
         });
 
         this.todos = await this.root.get<IFluidHandle>("todoDirectory").get() as ISharedDirectory;
-        this.todos.on("valueChanged", () => {
-            this.emit("todoDirectory");
+
+        // Because we're just reproccessing the whole directory every time, may as well use ops for simplicity
+        this.todos.on("op", () => {
+            this.emit("todoDirectory")
         })
 
         // Get Schema
