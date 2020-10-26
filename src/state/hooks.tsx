@@ -34,6 +34,9 @@ export const useDispatch = () => {
     const { myDir } = dataObject;
 
     return {
+        /**
+         * Doesn't take a parameter because we use Fluent's auto generator
+         */
         addItem: () => {
             // Would be params
             const {id, item} = {
@@ -63,44 +66,3 @@ export const useDispatch = () => {
         }
     }
 }
-
-// /**
-//  * Doesn't take a parameter because we use Fluent's auto generator
-//  */
-// export const addItem = () => {
-//     const dataObject = React.useContext(FluidContext);
-//     const { myDir } = dataObject;
-
-//     // Would be params
-//     const {id, item} = {
-//         id: Date.now().toString(),
-//         item: createListItems(1)[0],
-//     }
-
-//     item.key = id;
-//     const subdir = myDir.createSubDirectory(item.key);
-//     for (const k in item) {
-//       subdir.set(k, item[k]);
-//     }
-// }
-
-// export const deleteItem = (key: string) => {
-//     const dataObject = React.useContext(FluidContext);
-//     const { myDir } = dataObject;
-
-//     if (myDir.hasSubDirectory(key)) {
-//       myDir.deleteSubDirectory(key);
-//       dataObject.emitEvent("directoryChanged");
-//     }
-//     return;
-// }
-
-// export const updateItem = (id: string, updates: Partial<Omit<IExampleItem, "id">>) => {
-//     const { myDir } = React.useContext(FluidContext);
-
-//     const subDir = myDir.getSubDirectory(id);
-//     for (const key in updates) {
-//       subDir?.set(key, updates[key])
-//     }
-//     return;
-// }
