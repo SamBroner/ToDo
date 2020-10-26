@@ -6,7 +6,6 @@ import { getToDos, getToDoSetters, IToDo } from "../state/ToDoManager";
 export const ToDos = () => {
 
     const todos = getToDos(); // Get ToDos
-    // const { addTodo, updateTodo } = getToDoSetters();
     const { addTodo, updateTodo, deleteTodo } = getToDoSetters();
 
     const onRenderToDo = (todo?: IToDo) => {

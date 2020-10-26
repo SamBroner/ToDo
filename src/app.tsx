@@ -10,7 +10,6 @@ import { ContainerFactory } from "./container";
 import { Main } from "./dataObjects/main";
 import { FluidContext } from "./state/contextProvider";
 import { initializeIcons, Stack } from "@fluentui/react";
-import { DataList } from "./components/DataList";
 import { ToDos } from "./components/ToDo";
 
 
@@ -36,7 +35,6 @@ async function start(): Promise<void> {
         <FluidContext.Provider value={Main} >
             <Stack gap={24}>
                 <ToDos />
-                <DataList />
             </Stack>
         </FluidContext.Provider >
         , div)

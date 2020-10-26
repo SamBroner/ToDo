@@ -27,6 +27,7 @@ This is tricky if you want to set the state for one item in a list... a fairly c
 # Gotchas
 * You can't have onClick= () => ... where the ... includes React.useContext. You need to get a callback from a function that inherits the context via scope [[See Rules of Hooks]]
 * Directory deletes don't emit valueChanged
+* getDataFromSubdirectory is just returning all of the children from subdir, so the typing is particularly weak
 
 # TODO
 * Reset ToDo input to empty after enter

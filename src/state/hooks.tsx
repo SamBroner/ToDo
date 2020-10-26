@@ -1,4 +1,3 @@
-import { createListItems, IExampleItem } from "@uifabric/example-data";
 import React from "react";
 import { Main } from "../dataObjects/main";
 import { FluidContext } from "./contextProvider";
@@ -36,51 +35,13 @@ export const useSelector = <T,>(selectorFunction: (dataObject: Main) => T, event
     return selectorState;
 }
 
-export const getItemSetters = () => {
-    const dataObject = React.useContext(FluidContext);
-    const { myDir } = dataObject;
-
-    return {
-        /**
-         * Doesn't take a parameter because we use Fluent's auto generator
-         */
-        addItem: () => {
-            // Would be params
-            const {id, item} = {
-                id: Date.now().toString(),
-                item: createListItems(1)[0],
-            }
-        
-            item.key = id;
-            const subdir = myDir.createSubDirectory(item.key);
-            for (const k in item) {
-              subdir.set(k, item[k]);
-            }
-        },
-        deleteItem: (key: string) => {
-            if (myDir.hasSubDirectory(key)) {
-              myDir.deleteSubDirectory(key);
-              dataObject.emitEvent("itemDirectory");
-            }
-            return;
-        },
-        updateItem: (id: string, updates: Partial<Omit<IExampleItem, "id">>) => {        
-            const subDir = myDir.getSubDirectory(id);
-            for (const key in updates) {
-              subDir?.set(key, updates[key])
-            }
-            return;
-        }
-    }
-}
-
-export const getItems = () => {
-    return useSelector<IExampleItem[]>(({ myDir }) => {
-        return Array.from(myDir!.subdirectories()).map<IExampleItem>(getDataFromSubdirectory);
-    }, ['itemDirectory']);
-};
-
+/**
+ * Get's the subdirectory and returns the object of type T (the collection of children)
+ * You're not guaranteed to actually get T if your data model is wrong
+ * @param item a subdirectory
+ */
 export const getDataFromSubdirectory = <T,>(item: any): T => {
+    console.log(item);
     const data = {};
     for (const [key, value] of item[1]) {
         data[key] = value;
