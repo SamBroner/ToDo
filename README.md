@@ -47,4 +47,6 @@ We'll have to componentize the next layer
     * Each ToDo is getting its own directory. That's somewhat interesting.
 * The SharedDirectory order is a weak guarantee: the Map is based on insert order which would be different on two different machines
 
-
+# Style Guidelines
+* Could I move the StateManagement into the data object?
+* I could move state/hooks into some sort of aqueduct layer?

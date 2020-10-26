@@ -21,16 +21,12 @@ export const ToDos = () => {
                     }} />
                 <Text>
                     {todo.title}
-                    </Text>
-                <a onClick={() => { console.log("//TODO: should be editable?")}}>
-                    <FontIcon iconName={"Edit"} style={{
-                        margin: '5px',
-                    }} />
-                </a>
-                <a onClick={() => { 
+                </Text>
+                {/* <FontIcon iconName={"Edit"} style={{margin: '5px' }} /> */}
+                <a onClick={() => {
                     console.log("delete")
                     deleteTodo(todo.id)
-                    }}>
+                }}>
                     <FontIcon iconName={"Delete"} style={{
                         margin: '5px',
                     }} />
