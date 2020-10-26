@@ -20,13 +20,14 @@ export const getToDoSetters = () => {
                 title,
                 completed: false,
             }
-            todos.insert(todos.getItemCount(), [todo])
-            // const subdir = todos.createSubDirectory(todo.id);
-            // for (const k in todo) {
-            //     subdir.set(k, todo[k]);
-            // }
+            // Put at end
+            todos.insert(todos.getItemCount(), [todo]);
         },
         updateTodo: (id: string, todo: Partial<Omit<IToDo, "id">>) => {
+            // should be doable with replaceRange?
+
+            // todos.walkSegments
+            
             // todos.
             // const subdir = todos.getSubDirectory(id);
             // for (const [key, value] of Object.entries(todo)) {
@@ -34,6 +35,8 @@ export const getToDoSetters = () => {
             // }
         },
         deleteTodo: (id: string) => {
+            todos.getPosition("a");
+            todos.
             // todos.deleteSubDirectory(id);
             // dataObject.emitEvent("todoSequence");
         }
