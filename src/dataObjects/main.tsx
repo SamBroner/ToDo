@@ -8,10 +8,6 @@ import {
 export class Main extends DataObject {
     // public items: IExampleItem[] | undefined;
     public myDir!: ISharedDirectory;
-    // public get myDir(): ISharedDirectory {
-    //     if (!this._myDir) throw new Error("no myDir?");
-    //     return this._myDir;
-    // }
     public todos!: ISharedDirectory;
 
     public static Factory = new DataObjectFactory(
@@ -42,9 +38,12 @@ export class Main extends DataObject {
         this.myDir = await this.root.get<IFluidHandle>("fluentDirectory").get() as ISharedDirectory;
         this.myDir?.on("valueChanged", () => {
             this.emit("itemDirectory");
-
         });
 
+        this.todos = await this.root.get<IFluidHandle>("todoDirectory").get() as ISharedDirectory;
+        this.todos.on("valueChanged", () => {
+            this.emit("todoDirectory");
+        })
 
         // Get Schema
     }

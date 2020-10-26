@@ -6,12 +6,12 @@ import * as  React from "react";
 import * as ReactDOM from "react-dom";
 import { getDefaultObjectFromContainer } from "@fluidframework/aqueduct";
 import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-container";
-// import { View } from "./view";
 import { ContainerFactory } from "./container";
 import { Main } from "./dataObjects/main";
 import { FluidContext } from "./state/contextProvider";
 import { initializeIcons, Stack } from "@fluentui/react";
 import { DataList } from "./components/DataList";
+import { ToDos } from "./components/ToDo";
 
 
 let createNew = false;
@@ -35,6 +35,7 @@ async function start(): Promise<void> {
     ReactDOM.render(
         <FluidContext.Provider value={Main} >
             <Stack gap={24}>
+                <ToDos />
                 <DataList />
             </Stack>
         </FluidContext.Provider >

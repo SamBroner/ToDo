@@ -11,22 +11,34 @@ export interface IToDo {
 
 export const getToDoSetters = () => {
     const dataObject = React.useContext(FluidContext) as Main;
-    console.log(dataObject)
+    const { todos } = dataObject;
     return {
-        addItem: () => {
+        addTodo: (title: string) => {
+            const todo = {
+                id: Date.now().toString(),
+                title,
+                completed: false,
+            }
+            const subdir = todos.createSubDirectory(todo.id);
+            for (const k in todo) {
+                subdir.set(k, todo[k]);
+            }
 
         },
-        updateItem: () => {
-
+        updateTodo: (id: string, todo: Partial<Omit<IToDo, "id">>) => {
+            const subdir = todos.getSubDirectory(id);
+            for (const [key, value] of Object.entries(todo)) {
+                subdir.set(key, value);
+            }
         },
-        deleteItem: () => {
+        deleteTodo: () => {
 
         }
     }
 }
 
 export const getToDos = () => {
-    return useSelector<IToDo[]>(({ myDir }) => {
-        return Array.from(myDir!.subdirectories()).map<IToDo>(getDataFromSubdirectory);
-    }, ['itemDirectory']);
+    return useSelector<IToDo[]>(({ todos }) => {
+        return Array.from(todos!.subdirectories()).map<IToDo>(getDataFromSubdirectory);
+    }, ['todoDirectory']);
 }

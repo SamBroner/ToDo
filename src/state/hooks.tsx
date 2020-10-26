@@ -3,6 +3,13 @@ import React from "react";
 import { Main } from "../dataObjects/main";
 import { FluidContext } from "./contextProvider";
 
+/**
+ * Used to keep get a value and keep it up to date.
+ * React objects using this hook will get rerendered on change to the returned data
+ * 
+ * @param selectorFunction - function that scopes the returned data
+ * @param eventNames - event names to rerender on
+ */
 export const useSelector = <T,>(selectorFunction: (dataObject: Main) => T, eventNames: string[]): T => {
     const dataObject = React.useContext(FluidContext);
 
