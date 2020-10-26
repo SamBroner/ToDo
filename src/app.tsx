@@ -9,8 +9,10 @@ import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-contain
 // import { View } from "./view";
 import { ContainerFactory } from "./container";
 import { Main } from "./dataObjects/main";
+import { FluidContext } from "./state/contextProvider";
+import { initializeIcons, Stack } from "@fluentui/react";
+import { DataList } from "./components/DataList";
 
-// import { FluidContext } from "./fludux/contextProvider";
 
 let createNew = false;
 if (location.hash.length === 0) {
@@ -28,12 +30,14 @@ async function start(): Promise<void> {
     console.log(Main);
 
     const div = document.getElementById("content") as HTMLDivElement;
+    initializeIcons();
 
     ReactDOM.render(
-        <div>hello world</div>
-        // <FluidContext.Provider value={Main} >
-        //     <View />
-        // </FluidContext.Provider >
+        <FluidContext.Provider value={Main} >
+            <Stack gap={24}>
+                <DataList />
+            </Stack>
+        </FluidContext.Provider >
         , div)
 
 
