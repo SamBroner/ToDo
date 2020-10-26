@@ -1,6 +1,6 @@
 import { Text, TextField, List, Checkbox, FontIcon } from "@fluentui/react";
 import * as React from "react";
-import { getToDos, getToDoSetters, IToDo } from "../state/ToDoManager";
+import { getToDos, getToDoSetters, IToDo } from "../state/todoListManager";
 
 
 export const ToDos = () => {
