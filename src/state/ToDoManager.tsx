@@ -1,6 +1,6 @@
 import { ISharedDirectory } from "@fluidframework/map";
 import React from "react";
-import { TodoList } from "../dataObjects/main";
+import { TodoList } from "../dataObjects/TodoDataObject";
 import { FluidContext } from "./contextProvider";
 import { getDataFromSubdirectory, useSelector } from "./hooks";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { TodoList } from "../dataObjects/main";
+import { TodoList } from "../dataObjects/TodoDataObject";
 import { FluidContext } from "./contextProvider";
 
 /**
