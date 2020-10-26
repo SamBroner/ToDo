@@ -29,7 +29,7 @@ export const useSelector = <T,>(selectorFunction: (dataObject: Main) => T, event
     return selectorState;
 }
 
-export const useDispatch = () => {
+export const getItemSetters = () => {
     const dataObject = React.useContext(FluidContext);
     const { myDir } = dataObject;
 
@@ -53,7 +53,7 @@ export const useDispatch = () => {
         deleteItem: (key: string) => {
             if (myDir.hasSubDirectory(key)) {
               myDir.deleteSubDirectory(key);
-              dataObject.emitEvent("directoryChanged");
+              dataObject.emitEvent("itemDirectory");
             }
             return;
         },
@@ -65,4 +65,20 @@ export const useDispatch = () => {
             return;
         }
     }
+}
+
+export const getItems = () => {
+    return useSelector<IExampleItem[]>(({ myDir }) => {
+        return Array.from(myDir!.subdirectories()).map<IExampleItem>(getDataFromSubdirectory);
+    }, ['itemDirectory']);
+};
+
+export const getDataFromSubdirectory = <T,>(item: any): T => {
+    const data = {};
+    for (const [key, value] of item[1]) {
+        data[key] = value;
+    }
+    // Watch out for this... feels like it could bite you
+    data['id'] = item[0];
+    return data as T;
 }

@@ -8,13 +8,12 @@ import {
   IconButton,
 } from "@fluentui/react";
 import { IExampleItem } from "@uifabric/example-data";
-import { useItems } from "../state/selectors";
-import { useDispatch } from "../state/hooks";
+import { getItems, getItemSetters } from "../state/hooks";
 
 export const DataList = () => {
 
-  const items = useItems();
-  const {addItem, deleteItem, updateItem } = useDispatch();
+  const items = getItems();
+  const {addItem, deleteItem, updateItem } = getItemSetters();
 
   const onRenderCell = (item?: IExampleItem) => {
     if (!item) {

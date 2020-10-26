@@ -12,6 +12,7 @@ export class Main extends DataObject {
     //     if (!this._myDir) throw new Error("no myDir?");
     //     return this._myDir;
     // }
+    public todos!: ISharedDirectory;
 
     public static Factory = new DataObjectFactory(
         "main",
@@ -32,16 +33,19 @@ export class Main extends DataObject {
             }
         });
         this.root.set("fluentDirectory", directory.handle);
-        // Set Schema
+
+        const todos = SharedDirectory.create(this.runtime);
+        this.root.set("todoDirectory", todos.handle);
     }
 
     protected async hasInitialized() {
-        const handle = this.root.get<IFluidHandle>("fluentDirectory");
-        this.myDir = await handle.get() as ISharedDirectory;
+        this.myDir = await this.root.get<IFluidHandle>("fluentDirectory").get() as ISharedDirectory;
         this.myDir?.on("valueChanged", () => {
-            this.emit("directoryChanged");
+            this.emit("itemDirectory");
 
         });
+
+
         // Get Schema
     }
 
