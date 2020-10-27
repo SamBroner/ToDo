@@ -60,8 +60,6 @@ export const getToDoSetters = () => {
     // (and react then rerendering any dependent components)
 export const getToDos = () => {
     return useSelector<IToDo[]>((todoList: TodoList) => {
-        const todos = todoList.todos;
-        // return Array.from(todos.subdirectories()).map<IToDo>(getDataFromSubdirectory);
-        return todos.getItems(0);
+        return todoList.todos.getItems(0);
     }, ["todoSequence"]);
 }
