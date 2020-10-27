@@ -15,6 +15,8 @@ export const getToDoSetters = () => {
     const { todos } = dataObject;
     return {
         addTodo: (title: string) => {
+
+            // Create new Object? Pass in Handle?
             const todo = {
                 id: Date.now().toString(),
                 title,
@@ -23,22 +25,14 @@ export const getToDoSetters = () => {
             // Put at end
             todos.insert(todos.getItemCount(), [todo]);
         },
-        updateTodo: (id: string, todo: Partial<Omit<IToDo, "id">>) => {
+        updateTodo: (id: string, todo: Partial<IToDo>) => {
             // should be doable with replaceRange?
-
-            // todos.walkSegments
-            
-            // todos.
-            // const subdir = todos.getSubDirectory(id);
-            // for (const [key, value] of Object.entries(todo)) {
-            //     subdir.set(key, value);
-            // }
+            todos.findAndUpdateObject((item) => item.id === id, todo);
         },
         deleteTodo: (id: string) => {
             todos.getPosition("a");
-            todos.
-            // todos.deleteSubDirectory(id);
-            // dataObject.emitEvent("todoSequence");
+            const index = todos.getItems(0).findIndex((item) => item.id === id)
+            todos.remove(index, index + 1);
         }
     }
 }
