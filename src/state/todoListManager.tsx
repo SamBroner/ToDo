@@ -39,12 +39,12 @@ export const getToDoSetters = () => {
             }
     
             const segment = new SubSequence([item])
-    
+            
             const ops: IMergeTreeDeltaOp[] = [];
             ops.push(createRemoveRangeOp(index, index + 1));
             ops.push(createInsertSegmentOp(index, segment));
-    
             const groupOp = createGroupOp(...ops);
+
             todos.groupOperation(groupOp);
         },
         deleteTodo: (id: string) => {
