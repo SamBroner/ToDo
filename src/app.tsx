@@ -5,12 +5,12 @@
 import * as  React from "react";
 import * as ReactDOM from "react-dom";
 import { getDefaultObjectFromContainer } from "@fluidframework/aqueduct";
-import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-container";
 import { ContainerFactory } from "./container";
 import { TodoList } from "./dataObjects/TodoDataObject";
 import { FluidContext } from "./state/contextProvider";
 import { initializeIcons, Stack } from "@fluentui/react";
 import { ToDos } from "./components/ToDo";
+import { getFRSContainer } from "./utils/getFRSContainer";
 
 let createNew = false;
 if (location.hash.length === 0) {
@@ -22,7 +22,7 @@ document.title = documentId;
 
 async function start(): Promise<void> {
 
-    const container = await getTinyliciousContainer(documentId, ContainerFactory, createNew);
+    const container = await getFRSContainer(documentId, ContainerFactory, createNew);
 
     const TodoList = await getDefaultObjectFromContainer<TodoList>(container);
 
