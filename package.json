@@ -31,6 +31,7 @@
     "@fluidframework/shared-object-base": "^0.26.0",
     "@fluidframework/view-interfaces": "^0.26.0",
     "@uifabric/example-data": "^7.1.5",
+    "jest-diff": "^26.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

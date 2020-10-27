@@ -1,12 +1,15 @@
-import { Text, TextField, List, Checkbox, FontIcon } from "@fluentui/react";
+import { Text, TextField, List, Checkbox, FontIcon, ITextField } from "@fluentui/react";
 import * as React from "react";
-import { getToDos, getToDoSetters, IToDo } from "../state/todoListManager";
+import { getToDos, getToDoSetters, getToDoString, IToDo } from "../state/todoListManager";
 
 
 export const ToDos = () => {
 
     const todos = getToDos(); // Get ToDos
-    const { addTodo, updateTodo, deleteTodo } = getToDoSetters();
+    const todoText = getToDoString();
+
+    const { addTodo, updateTodo, deleteTodo, updateTodoText } = getToDoSetters();
+
 
     const ToDoItemComponent = (todo?: IToDo) => {
         if (!todo) {
@@ -33,17 +36,28 @@ export const ToDos = () => {
             </div>
         )
     }
+  const fieldRef = React.createRef<ITextField>();
+
     return (
         <div>
             <TextField
                 placeholder="What needs to be done?"
+                componentRef={fieldRef}
+
+                onChange={(e, n) => {
+                    console.log(n);
+                    updateTodoText(n);
+                }}
                 onKeyPress={(e) => {
                     if (e.key === "Enter") {
-                        addTodo(e.currentTarget.value)
+                        addTodo(todoText);
+                        updateTodoText("");
+                        // addTodo(e.currentTarget.value)
                         e.currentTarget.value = "";
                         e.preventDefault();
                     }
                 }}
+                value={todoText}
             />
             {todos.length > 0 ? (
                 <List items={todos} onRenderCell={ToDoItemComponent} />
