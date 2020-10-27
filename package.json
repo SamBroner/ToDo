@@ -23,11 +23,15 @@
   "dependencies": {
     "@fluentui/react": "^7.147.1",
     "@fluidframework/aqueduct": "^0.26.0",
+    "@fluidframework/datastore-definitions": "^0.26.0",
     "@fluidframework/get-tinylicious-container": "^0.26.0",
     "@fluidframework/map": "^0.26.0",
+    "@fluidframework/merge-tree": "^0.26.0",
     "@fluidframework/sequence": "^0.26.0",
+    "@fluidframework/shared-object-base": "^0.26.0",
     "@fluidframework/view-interfaces": "^0.26.0",
     "@uifabric/example-data": "^7.1.5",
+    "jest-diff": "^26.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

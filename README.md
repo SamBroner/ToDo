@@ -35,6 +35,7 @@ We'll have to componentize the next layer
 * You can't have onClick= () => ... where the ... includes React.useContext. You need to get a callback from a function that inherits the context via scope [[See Rules of Hooks]]
 * Directory deletes don't emit valueChanged
 * getDataFromSubdirectory is just returning all of the children from subdir, so the typing is particularly weak
+* Getting an **ITEM** back from a sharedSequence still isn't trivial.
 
 # TODO
 * Reset ToDo input to empty after enter
