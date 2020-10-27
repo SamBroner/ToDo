@@ -29,7 +29,6 @@ export const getToDoSetters = () => {
             todos.insert(todos.getItemCount(), [todo]);
         },
         updateTodo: (id: string, todo: Partial<IToDo>) => {
-            // should be doable with replaceRange?
 
             const items = todos.getItems(0);
             const index = items.findIndex((item) => item.id === id);

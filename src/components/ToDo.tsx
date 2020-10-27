@@ -44,15 +44,13 @@ export const ToDos = () => {
                 placeholder="What needs to be done?"
                 componentRef={fieldRef}
 
-                onChange={(e, n) => {
-                    console.log(n);
-                    updateTodoText(n);
+                onChange={(e, text) => {
+                    if (text) { updateTodoText(text); }
                 }}
                 onKeyPress={(e) => {
                     if (e.key === "Enter") {
                         addTodo(todoText);
                         updateTodoText("");
-                        // addTodo(e.currentTarget.value)
                         e.currentTarget.value = "";
                         e.preventDefault();
                     }
