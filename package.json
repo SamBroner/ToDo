@@ -32,7 +32,11 @@
     "@fluidframework/protocol-definitions": "^0.1013.0",
     "@fluidframework/sequence": "^0.27.0",
     "@fluidframework/view-interfaces": "^0.27.0",
+    "@fluidframework/datastore-definitions": "^0.27.0",
+    "@fluidframework/merge-tree": "^0.27.0",
+    "@fluidframework/shared-object-base": "^0.27.0",
     "@uifabric/example-data": "^7.1.5",
+    "jest-diff": "^26.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
