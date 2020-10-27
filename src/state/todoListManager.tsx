@@ -1,3 +1,5 @@
+import { IMergeTreeDeltaOp, createRemoveRangeOp, createInsertSegmentOp, createGroupOp } from "@fluidframework/merge-tree";
+import { SubSequence } from "@fluidframework/sequence";
 import React from "react";
 import { TodoList } from "../dataObjects/TodoDataObject";
 import { FluidContext } from "./contextProvider";
@@ -27,7 +29,23 @@ export const getToDoSetters = () => {
         },
         updateTodo: (id: string, todo: Partial<IToDo>) => {
             // should be doable with replaceRange?
-            todos.findAndUpdateObject((item) => item.id === id, todo);
+
+            const items = todos.getItems(0);
+            const index = items.findIndex((item) => item.id === id);
+            let item = items[index];
+            
+            for (const [key, value] of Object.entries(todo)) {
+                item[key] = value;
+            }
+    
+            const segment = new SubSequence([item])
+    
+            const ops: IMergeTreeDeltaOp[] = [];
+            ops.push(createRemoveRangeOp(index, index + 1));
+            ops.push(createInsertSegmentOp(index, segment));
+    
+            const groupOp = createGroupOp(...ops);
+            todos.groupOperation(groupOp);
         },
         deleteTodo: (id: string) => {
             todos.getPosition("a");
