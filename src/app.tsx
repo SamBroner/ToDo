@@ -7,7 +7,7 @@ import * as ReactDOM from "react-dom";
 import { getDefaultObjectFromContainer } from "@fluidframework/aqueduct";
 import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-container";
 import { ContainerFactory } from "./container";
-import { TodoList } from "./dataObjects/TodoDataObject";
+import { TodoList } from "./dataObjects/todoListDataObject";
 import { FluidContext } from "./state/contextProvider";
 import { initializeIcons, Stack } from "@fluentui/react";
 import { ToDos } from "./components/ToDo";

@@ -1,7 +1,7 @@
 import { IMergeTreeDeltaOp, createRemoveRangeOp, createInsertSegmentOp, createGroupOp } from "@fluidframework/merge-tree";
 import { SubSequence } from "@fluidframework/sequence";
 import React from "react";
-import { TodoList } from "../dataObjects/TodoDataObject";
+import { TodoList } from "../dataObjects/todoListDataObjectject";
 import { FluidContext } from "./contextProvider";
 import { useSelector } from "./hooks";
 
