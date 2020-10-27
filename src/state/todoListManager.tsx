@@ -1,7 +1,7 @@
 import { IMergeTreeDeltaOp, createRemoveRangeOp, createInsertSegmentOp, createGroupOp } from "@fluidframework/merge-tree";
 import { SubSequence } from "@fluidframework/sequence";
 import React from "react";
-import { TodoList } from "../dataObjects/todoListDataObjectject";
+import { TodoList } from "../dataObjects/todoListDataObject";
 import { FluidContext } from "./contextProvider";
 import { useSelector } from "./hooks";
 
@@ -15,9 +15,9 @@ export interface IToDo {
 export const getToDoSetters = () => {
     const dataObject = React.useContext(FluidContext) as TodoList;
     const { todos } = dataObject;
+
     return {
         addTodo: (title: string) => {
-
             // Create new Object? Pass in Handle?
             const todo = {
                 id: Date.now().toString(),
@@ -48,7 +48,6 @@ export const getToDoSetters = () => {
             todos.groupOperation(groupOp);
         },
         deleteTodo: (id: string) => {
-            todos.getPosition("a");
             const index = todos.getItems(0).findIndex((item) => item.id === id)
             todos.remove(index, index + 1);
         }
