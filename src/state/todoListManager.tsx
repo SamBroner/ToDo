@@ -29,11 +29,11 @@ export const getToDoSetters = () => {
             todos.insert(todos.getItemCount(), [todo]);
         },
         updateTodo: (id: string, todo: Partial<IToDo>) => {
-
             const items = todos.getItems(0);
             const index = items.findIndex((item) => item.id === id);
             let item = items[index];
 
+            // Update existing ToDo with new ToDo info
             for (const [key, value] of Object.entries(todo)) {
                 item[key] = value;
             }

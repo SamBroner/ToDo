@@ -10,7 +10,6 @@ export const ToDos = () => {
 
     const { addTodo, updateTodo, deleteTodo, updateTodoText } = getToDoSetters();
 
-
     const ToDoItemComponent = (todo?: IToDo) => {
         if (!todo) {
             return (<></>)

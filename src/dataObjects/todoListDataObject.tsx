@@ -46,4 +46,3 @@ export class TodoList extends DataObject {
         this.emit(event);
       };
 }
-

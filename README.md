@@ -39,8 +39,9 @@ We'll have to componentize the next layer
 
 # TODO
 * Reset ToDo input to empty after enter
-* TODO "editing" is broken
+* TODO - can't delete first letter, dropping characters
 * Reordering is actually fairly far off. I'd have to delete and readd the directories? Or leave a ton of tombstones. Nothing pretty
+* Add "update" fn to SharedObjectSequence 
 
 # Questions
 * React.useEffect seems really expensive? Especially in the useSelector... I'm rebuilding the entire dir each time?
