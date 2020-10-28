@@ -10,7 +10,8 @@ import { TodoList } from "./dataObjects/todoListDataObject";
 import { FluidContext } from "./state/contextProvider";
 import { initializeIcons, Stack } from "@fluentui/react";
 import { ToDos } from "./components/ToDo";
-import { getFRSContainer } from "./utils/getFRSContainer";
+import { getFRSContainer, hasFRSEndpoints } from "./utils/getFRSContainer";
+import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-container";
 
 let createNew = false;
 if (location.hash.length === 0) {
@@ -22,7 +23,9 @@ document.title = documentId;
 
 async function start(): Promise<void> {
 
-    const container = await getFRSContainer(documentId, ContainerFactory, createNew);
+    const container = hasFRSEndpoints() ? 
+                        await getFRSContainer(documentId, ContainerFactory, createNew)
+                        : await getTinyliciousContainer(documentId, ContainerFactory, createNew);
 
     const TodoList = await getDefaultObjectFromContainer<TodoList>(container);
 

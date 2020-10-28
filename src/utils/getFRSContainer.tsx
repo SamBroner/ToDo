@@ -75,3 +75,15 @@ export async function getFRSContainer(
         containerRuntimeFactory,
     );
 }
+
+export function hasFRSEndpoints() {
+    try {
+        if (process.env.ID === undefined) throw Error("Define ID in .env file");
+        if (process.env.KEY === undefined) throw Error("Define KEY in .env file");
+        if (process.env.ORDERER === undefined) throw Error("Define ORDERER in .env file");
+        if (process.env.STORAGE === undefined) throw Error("Define STORAGE in .env file");
+    } catch {
+        return false;
+    }
+    return true;
+}
