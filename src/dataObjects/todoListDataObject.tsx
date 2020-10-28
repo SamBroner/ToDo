@@ -30,7 +30,6 @@ export class TodoList extends DataObject {
     protected async hasInitialized() {
         this.todos = await this.root.get<IFluidHandle>("todoSequence").get() as SharedObjectSequence<IToDo>;
 
-        // Because we're just reproccessing the whole directory every time, may as well use ops for simplicity
         this.todos.on("op", () => {
             this.emit("todoSequence")
         })

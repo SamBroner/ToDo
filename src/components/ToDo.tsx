@@ -2,7 +2,6 @@ import { Text, TextField, List, Checkbox, FontIcon, ITextField } from "@fluentui
 import * as React from "react";
 import { getToDos, getToDoSetters, getToDoString, IToDo } from "../state/todoListManager";
 
-
 export const ToDos = () => {
 
     const todos = getToDos(); // Get ToDos
@@ -24,7 +23,6 @@ export const ToDos = () => {
                 <Text>
                     {todo.title}
                 </Text>
-                {/* <FontIcon iconName={"Edit"} style={{margin: '5px' }} /> */}
                 <a onClick={() => {
                     deleteTodo(todo.id)
                 }}>
