@@ -9,7 +9,7 @@ npm i
 npm start
 ```
 
-You can also run against FRS by creating a new tenant. Instructions are at aka.ms/fluidrelayservice. You'll pass in the following information to a .env file stored at the root.
+You can also run against FRS by creating a new tenant. You'll pass in the following information to a .env file stored at the root.
 ```
 ID="Tenant ID"
 KEY="Tenant Key"
