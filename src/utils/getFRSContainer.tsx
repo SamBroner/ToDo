@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
  */
 
+import axios from "axios";
 import { RouterliciousDocumentServiceFactory } from "@fluidframework/routerlicious-driver";
-import jwt from "jsonwebtoken";
 import { IRuntimeFactory } from "@fluidframework/container-definitions";
 import { IUrlResolver, IFluidResolvedUrl, IResolvedUrl } from "@fluidframework/driver-definitions";
 import { IRequest } from "@fluidframework/core-interfaces";
@@ -15,11 +15,12 @@ class RouterliciousUrlResolver implements IUrlResolver {
     }
 
     public async resolve(request: IRequest): Promise<IFluidResolvedUrl> {
+        const documentId = request.url.split("/")[0];
         const documentUrl = `${process.env.ORDERER}/${this.tenant}/${request.url}`;
 
         return Promise.resolve({
             endpoints: {
-                deltaStorageUrl: `${process.env.ORDERER}/deltas/${this.tenant}/${request.url}`,
+                deltaStorageUrl: `${process.env.ORDERER}/deltas/${this.tenant}/${documentId}`,
                 ordererUrl: `${process.env.ORDERER}`,
                 storageUrl: `${process.env.STORAGE}/repos/${this.tenant}`,
             },
@@ -32,7 +33,9 @@ class RouterliciousUrlResolver implements IUrlResolver {
         if (resolvedUrl.type !== "fluid") {
             throw Error("Invalid Resolved Url");
         }
-        return `${resolvedUrl.url}/${relativeUrl}`;
+        const url = new URL(resolvedUrl.url);
+        const documentId = url.pathname.split("/")[2];
+        return `${documentId}/${relativeUrl}`;
     }
 }
 
@@ -41,29 +44,13 @@ export async function getFRSContainer(
     containerRuntimeFactory: IRuntimeFactory,
     createNew: boolean,
 ) {
-    if (process.env.ID === undefined) throw Error("Define ID in .env file");
-    if (process.env.KEY === undefined) throw Error("Define KEY in .env file");
+    if (process.env.TOKENSERVER === undefined) throw Error("Define TOKENSERVER in .env file");
     if (process.env.ORDERER === undefined) throw Error("Define ORDERER in .env file");
     if (process.env.STORAGE === undefined) throw Error("Define STORAGE in .env file");
 
     const documentServiceFactory = new RouterliciousDocumentServiceFactory();
 
-    const user = {
-        id: "unique-id",
-        name: "Unique Idee",
-    };
-
-    const tenantId = process.env.ID;
-    const key = process.env.KEY;
-    const hostToken = jwt.sign(
-        {
-            user,
-            documentId,
-            tenantId: tenantId,
-            scopes: ["doc:read", "doc:write", "summary:write"],
-        },
-        key);
-
+    const { hostToken, tenantId } = await getFRSTokenAndTenantID(documentId, process.env.TOKENSERVER);
     const urlResolver = new RouterliciousUrlResolver(hostToken, tenantId);
 
     return getContainer(
@@ -78,12 +65,30 @@ export async function getFRSContainer(
 
 export function hasFRSEndpoints() {
     try {
-        if (process.env.ID === undefined) throw Error("Define ID in .env file");
-        if (process.env.KEY === undefined) throw Error("Define KEY in .env file");
+        if (process.env.TOKENSERVER === undefined) throw Error("Define TOKENSERVER in .env file");
         if (process.env.ORDERER === undefined) throw Error("Define ORDERER in .env file");
         if (process.env.STORAGE === undefined) throw Error("Define STORAGE in .env file");
     } catch {
         return false;
     }
     return true;
+}
+
+async function getFRSTokenAndTenantID(documentId: string, tokenServer: string) {
+    const user = {
+        id: "unique-id",
+        name: "Unique Idee",
+    };
+
+    const options = {
+        params: { documentId, user: JSON.stringify(user) },
+    };
+    const response = await axios.get(tokenServer, options);
+    const hostToken = response.data.token;
+    const tenantId = response.data.tenantId;
+
+    return {
+        hostToken,
+        tenantId,
+    };
 }
