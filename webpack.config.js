@@ -6,7 +6,10 @@ module.exports = env => {
 
     return {
         devtool: "inline-source-map",
-        entry: "./src/app.tsx",
+        entry: {
+            app: "./src/app.tsx",
+            main: "./src/container.tsx",
+        },
         mode: "development",
         module: {
             rules: [{
