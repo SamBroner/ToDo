@@ -8,4 +8,4 @@ export const ContainerFactory = new ContainerRuntimeFactoryWithDefaultDataStore(
     ]),
 );
 
-export const FluidExport = ContainerFactory;
+export const fluidExport = ContainerFactory;

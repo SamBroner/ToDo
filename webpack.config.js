@@ -19,6 +19,9 @@ module.exports = env => {
         },
         output: {
             filename: "[name].bundle.js",
+            library: "[name]",
+            devtoolNamespace: "todoApp",
+            libraryTarget: "umd",
         },
         plugins: [
             new HtmlWebpackPlugin({ template: htmlTemplate }),
