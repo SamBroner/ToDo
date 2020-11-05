@@ -30,6 +30,7 @@
     "@fluidframework/merge-tree": "^0.27.0",
     "@fluidframework/routerlicious-driver": "^0.27.0",
     "@fluidframework/sequence": "^0.27.0",
+    "@fluidframework/view-interfaces": "^0.27.0",
     "jest-diff": "^26.6.0",
     "jsonwebtoken": "^8.5.1",
     "react": "^16.13.1",
