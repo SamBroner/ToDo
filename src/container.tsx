@@ -7,3 +7,5 @@ export const ContainerFactory = new ContainerRuntimeFactoryWithDefaultDataStore(
         TodoList.Factory.registryEntry,
     ]),
 );
+
+export const FluidExport = ContainerFactory;
