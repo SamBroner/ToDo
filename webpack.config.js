@@ -6,7 +6,10 @@ module.exports = env => {
 
     return {
         devtool: "inline-source-map",
-        entry: "./src/app.tsx",
+        entry: {
+            app: "./src/app.tsx",
+            main: "./src/container.tsx",
+        },
         mode: "development",
         module: {
             rules: [{
@@ -15,7 +18,10 @@ module.exports = env => {
             }]
         },
         output: {
-            filename: "[name].[contenthash].js",
+            filename: "[name].bundle.js",
+            library: "[name]",
+            devtoolNamespace: "todoApp",
+            libraryTarget: "umd",
         },
         plugins: [
             new HtmlWebpackPlugin({ template: htmlTemplate }),

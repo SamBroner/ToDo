@@ -4,8 +4,16 @@ import {
 } from "@fluidframework/core-interfaces";
 import { SharedObjectSequence, SharedString } from "@fluidframework/sequence";
 import { IToDo } from "../state/todoListManager";
+import { IFluidHTMLView } from "@fluidframework/view-interfaces";
+import React from "react";
+import ReactDOM from "react-dom";
+import { FluidContext } from "../state/contextProvider";
+import { Stack } from "@fluentui/react";
+import { ToDos } from "../components/ToDo";
 
-export class TodoList extends DataObject {
+export class TodoList extends DataObject implements IFluidHTMLView {
+    public get IFluidHTMLView() { return this; }
+
     public todos!: SharedObjectSequence<IToDo>; // Property
     public todoTitle!: SharedString;
 
@@ -43,5 +51,16 @@ export class TodoList extends DataObject {
     // Public wrapper around Internal Method
     public emitEvent = (event: string) => {
         this.emit(event);
-      };
+    };
+
+    public render(div: HTMLElement) {
+        ReactDOM.render(
+            <FluidContext.Provider value={this} >
+                <Stack gap={24}>
+                    <ToDos />
+                </Stack>
+            </FluidContext.Provider >
+            , div)
+
+    }
 }

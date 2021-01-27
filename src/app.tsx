@@ -2,14 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
  */
-import * as  React from "react";
-import * as ReactDOM from "react-dom";
 import { getDefaultObjectFromContainer } from "@fluidframework/aqueduct";
 import { ContainerFactory } from "./container";
 import { TodoList } from "./dataObjects/todoListDataObject";
-import { FluidContext } from "./state/contextProvider";
-import { initializeIcons, Stack } from "@fluentui/react";
-import { ToDos } from "./components/ToDo";
+import { initializeIcons } from "@fluentui/react";
 import { getFRSContainer, hasFRSEndpoints } from "./utils/getFRSContainer";
 import { getTinyliciousContainer } from "@fluidframework/get-tinylicious-container";
 
@@ -32,14 +28,7 @@ async function start(): Promise<void> {
     const div = document.getElementById("content") as HTMLDivElement;
     initializeIcons();
 
-    ReactDOM.render(
-        <FluidContext.Provider value={TodoList} >
-            <Stack gap={24}>
-                <ToDos />
-            </Stack>
-        </FluidContext.Provider >
-        , div)
-
+    TodoList.render(div);
 
     // Reload the page on any further hash changes, e.g. in case you want to paste in a different document ID.
     window.addEventListener("hashchange", () => {
